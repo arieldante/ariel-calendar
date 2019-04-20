@@ -33,10 +33,10 @@ class AddTask extends Component {
 		event.preventDefault();
 		
 		let id = this.state.id;
-		let d = this.state.date;
-		let m = this.state.month;
-		let h = this.state.hour;
-		let y = this.state.year;
+		let d = parseInt(this.state.date);
+		let m = parseInt(this.state.month);
+		let y = parseInt(this.state.year);
+		let h = parseInt(this.state.hour);
 		let des = this.state.description ? this.state.description : 'Sin Tarea';
 		let c = this.state.color;
 		
@@ -79,7 +79,7 @@ class AddTask extends Component {
 					name="date"
 					type="number"
 					value={this.state.date}
-					onChange={this.handleInputChange} disabled = 'disabled'  />
+					onChange={this.handleInputChange} />
 					<input
 					name="month"
 					type="number"
