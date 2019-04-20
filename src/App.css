@@ -1,33 +1,142 @@
-.App {
-  text-align: center;
+.calendar{
+	width: 100%;
+	margin: 0 auto;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: #f9f9f9;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.calendar .calendar-header{
+	font-size: 34px;
+	margin: 10px 0;
+	text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.calendar table.calendar-table tr td {
+    border: 1px solid;
+    padding: 0px;
+    vertical-align: top;
+    width: 120px;
+    height: 100px;
+    background-color: #ffffff;
+    border-color: silver;
+    position: relative;
+    overflow: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+.calendar table.calendar-table tr td.today{
+	border-color: blue;
+	color: blue;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.calendar table.calendar-table tr td.empty {
+    background-color: transparent;
+    border-style: dotted;
+}
+
+.calendar table.calendar-table tr td.empty button, .calendar table.calendar-table tr td.empty .day-number {
+    display: none;
+}
+
+.calendar table.calendar-table tr td ul li button {
+    width: 100%;
+	height: 100%;
+    border: 1px dotted silver;
+    background: transparent;
+    cursor: pointer;
+}
+
+.calendar .day-number {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    position: absolute;
+    right: -20px;
+    top: -20px;
+    background: #f3f3f3;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    padding: 20px 20px 10px 10px;
+    text-align: center;
+	z-index: 1;
+}
+
+/* LISTS */
+
+.day ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+    height: 100%;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.day ul li {
+    font-size: 0.8em;
+    list-style-position: inside;
+    margin: 0;
+    width: 100%;
+    padding: 5px;
+    color: #ffffff;
+    box-sizing: border-box;
+}
+
+.day ul li:hover {
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+.day ul li:only-child {
+	opacity: 0;
+    height: 100%;
+	transition: opacity 0.25s ease;
+}
+
+.day ul li:hover:only-child {
+    opacity: 1;
+	background: transparent;
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #ffffff;
+    border-left: 1px solid silver;
+    max-width: 260px;
+    padding: 30px;
+    height: 100vh;
+	box-sizing: border-box;
+	z-index: 99;
+	width: 400px;
+}
+
+.sidebar h2{
+	text-align: center;
+}
+
+.sidebar input, .sidebar select, .sidebar button {
+    width: 100%;
+	box-sizing: border-box;
+	padding: 5px;
+}
+
+.sidebar input[name="date"], .sidebar input[name="month"], .sidebar input[name="year"] {
+    width: 33%;
+}
+
+.sidebar button.btn-remove {
+    background: #ffb4af;
+    border: 1px;
+    margin-top: 10px;
+    color: #ff2a1c;
+    padding: 7px;
 }
