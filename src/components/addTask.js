@@ -79,17 +79,17 @@ class AddTask extends Component {
 					name="date"
 					type="number"
 					value={this.state.date}
-					onChange={this.handleInputChange} />
+					onChange={this.handleInputChange} disabled = 'disabled'  />
 					<input
 					name="month"
 					type="number"
 					value={this.state.month}
-					onChange={this.handleInputChange} />
+					onChange={this.handleInputChange} disabled = 'disabled' />
 					<input
 					name="year"
 					type="number"
 					value={this.state.year}
-					onChange={this.handleInputChange} />
+					onChange={this.handleInputChange} disabled = 'disabled' />
 				</label><br/>
 				<label>
 				  Hora:<br/>
