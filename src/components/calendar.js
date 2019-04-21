@@ -8,51 +8,44 @@ import AddTask from './addTask';
 
 let store = configureStore();
 
+const DAYS_OF_WEEKS = 7
+const MONTH_NAMES = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+const DAY_NAMES = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"]
+
 class Calendar extends Component {
   constructor(props) {
-    super(props);
+    super(props)
+	
+	let now = new Date()
+	let y  = now.getFullYear()
+	let m  = now.getMonth() + 1
+	let d  = now.getDate()
+	
+	now.setDate(0)
+	let ds = now.getDate() // total dias del mes
+	
     this.state = {
-		 year: 2000,
-		 month: 1,
-		 date: 1,
-		 totalDays: 30,
-		 actionForm: false,
-		 sendToForm: {}
+		year: y,
+		month: m,
+		date: d,
+		totalDays: ds,
+		actionForm: false,
+		sendToForm: {}
     };
 	
 	this.updateState = this.updateState.bind(this)
 	
   }
   
-  componentDidMount() {
-	let y  = new Date().getFullYear()
-	let m  = new Date().getMonth() + 1
-	let d  = new Date().getDate()
-	let ds = new Date(y, m, 0).getDate()
-	
-    this.setState({
-		year: y,
-		month: m,
-		date: d,
-		totalDays: ds
-    })
-  }
-  
-  getMonthName() {
-	  let monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
-	  return monthNames[ this.state.month-1 ]
-  }
-  
   updateState( state ) {
 	  this.setState( state )
   }
-	
+
   createHeaderCalendar(){ 
-	let weekNames = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"]
     let rows = []
 	let cols = []
-	for (let i = 0; i < 7; i++ ){
-		cols.push(<th key={i}>{weekNames[i]}</th>)
+	for (let i = 0; i < DAYS_OF_WEEKS; i++ ){
+		cols.push(<th key={i}>{DAY_NAMES[i]}</th>)
 	}
 	rows.push(<tr key='header'>{cols}</tr>)
 	return rows
@@ -62,17 +55,17 @@ class Calendar extends Component {
     let  rows = []
 
 	let offset = new Date(this.state.year, this.state.month-1, 1).getDay()
-		offset = ( offset < 6 ? offset : 0 )
+		offset = ( offset < DAYS_OF_WEEKS-1 ? offset : 0 )
 		
 	let days = this.state.totalDays
-	let weeks = (days + offset)/7;
+	let weeks = (days + offset)/DAYS_OF_WEEKS;
 	let day =  1 - offset;
 	
 		
 	
 	for (let i = 0; i < weeks; i++ ){
 		let cols = []
-		for (let j = 0; j < 7; j++) {
+		for (let j = 0; j < DAYS_OF_WEEKS; j++) {
 			
 			let className = "day"
 			if( day > 0 && day <= days ){
@@ -101,7 +94,7 @@ class Calendar extends Component {
 		<Provider store={ store }>
 			<div className="calendar">
 			  <div className="calendar-header">
-			   <b>{ this.getMonthName() }</b> { this.state.year }
+			   <b>{ MONTH_NAMES[ this.state.month-1 ] }</b> { this.state.year }
 			   </div>
 				<div>
 				  <table className="calendar-table">
