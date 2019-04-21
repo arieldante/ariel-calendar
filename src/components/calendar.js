@@ -15,7 +15,22 @@ const DAY_NAMES = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"]
 class Calendar extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+		year: 2000,
+		month: 1,
+		date: 1,
+		totalDays: 30,
+		actionForm: false,
+		sendToForm: {}
+    };
 	
+	this.updateState = this.updateState.bind(this)
+	
+  }
+  
+  componentDidMount(){
+	  
 	let now = new Date()
 	let y  = now.getFullYear()
 	let m  = now.getMonth() + 1
@@ -24,17 +39,15 @@ class Calendar extends Component {
 	now.setDate(0)
 	let ds = now.getDate() // total dias del mes
 	
-    this.state = {
+	 this.setState({
 		year: y,
 		month: m,
 		date: d,
 		totalDays: ds,
 		actionForm: false,
 		sendToForm: {}
-    };
-	
-	this.updateState = this.updateState.bind(this)
-	
+    })
+	  
   }
   
   updateState( state ) {
@@ -59,7 +72,7 @@ class Calendar extends Component {
 		
 	let days = this.state.totalDays
 	let weeks = (days + offset)/DAYS_OF_WEEKS;
-	let day =  offset - 1;
+	let day =  1 - offset;
 	
 		
 	
