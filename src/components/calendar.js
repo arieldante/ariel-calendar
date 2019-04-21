@@ -36,7 +36,7 @@ class Calendar extends Component {
 	let m  = now.getMonth() + 1
 	let d  = now.getDate()
 	
-	now.setDate(0)
+	now.setDate(-1)
 	let ds = now.getDate() // total dias del mes
 	
 	 this.setState({
@@ -81,7 +81,7 @@ class Calendar extends Component {
 		for (let j = 0; j < DAYS_OF_WEEKS; j++) {
 			
 			let className = "day"
-			if( day > 0 && day < days ){
+			if( day > 0 && day <= days ){
 					if(    day === new Date().getDate()
 						&& this.state.month === new Date().getMonth()+1 
 						&& this.state.year === new Date().getFullYear() )
