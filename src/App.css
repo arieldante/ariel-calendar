@@ -9,10 +9,14 @@
 	background: #f9f9f9;
 }
 
-.calendar .calendar-header{
-	font-size: 34px;
-	margin: 10px 0;
-	text-align: center;
+.calendar .calendar-header {
+    font-size: 34px;
+    margin: 30px 0 30px;
+}
+
+.calendar hr{
+	border: 1px dotted silver;
+	margin: 30px;
 }
 
 .calendar table.calendar-table tr td {
