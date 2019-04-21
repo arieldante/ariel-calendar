@@ -59,7 +59,7 @@ class Calendar extends Component {
 		
 	let days = this.state.totalDays
 	let weeks = (days + offset)/DAYS_OF_WEEKS;
-	let day =  1 - offset;
+	let day =  offset - 1;
 	
 		
 	
@@ -68,7 +68,7 @@ class Calendar extends Component {
 		for (let j = 0; j < DAYS_OF_WEEKS; j++) {
 			
 			let className = "day"
-			if( day > 0 && day <= days ){
+			if( day > 0 && day < days ){
 					if(    day === new Date().getDate()
 						&& this.state.month === new Date().getMonth()+1 
 						&& this.state.year === new Date().getFullYear() )
