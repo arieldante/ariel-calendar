@@ -46,37 +46,54 @@ class Calendar extends Component {
   updateState( state ) {
 	  this.setState( state )
   }
-
+	
+  createHeaderCalendar(){ 
+	let weekNames = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"]
+    let rows = []
+	let cols = []
+	for (let i = 0; i < 7; i++ ){
+		cols.push(<th key={i}>{weekNames[i]}</th>)
+	}
+	rows.push(<tr key='header'>{cols}</tr>)
+	return rows
+  }
+  
   createCalendar() {
-    let  table = []
-	let  days = this.state.totalDays
-	let  weeks = days/7;
+    let  rows = []
 
-	let day = 0;
+	let offset = new Date(this.state.year, this.state.month-1, 1).getDay()
+		offset = ( offset < 6 ? offset : 0 )
+		
+	let days = this.state.totalDays
+	let weeks = (days + offset)/7;
+	let day =  1 - offset;
+	
+		
+	
 	for (let i = 0; i < weeks; i++ ){
 		let cols = []
 		for (let j = 0; j < 7; j++) {
 			
-			day++
 			let className = "day"
-			let number = day;
-			
-			if( day <= days ){
-				if(    day === new Date().getDate()
-					&& this.state.month === new Date().getMonth()+1 
-					&& this.state.year === new Date().getFullYear() )
-					{ className += " today" }
-				
-			}else{ 
-				className += " empty"; number = ""
+			if( day > 0 && day <= days ){
+					if(    day === new Date().getDate()
+						&& this.state.month === new Date().getMonth()+1 
+						&& this.state.year === new Date().getFullYear() )
+						{ className += " today" }
+			}else{
+				className += " empty";
 			}
 			
-			cols.push(<Day key={j} date={number} month={this.state.month} year={this.state.year} className={className} action={this.updateState} />)
+			cols.push(<Day key={j} date={ day } month={this.state.month} year={this.state.year} className={className} action={this.updateState} />)
+			
+			offset--
+			day++
 			
 		}
-		table.push(<tr key={i}>{cols}</tr>)
+		
+		rows.push(<tr key={i}>{cols}</tr>)
 	}
-	return table
+	return rows
   }
  
   render() {
@@ -89,6 +106,7 @@ class Calendar extends Component {
 				<div>
 				  <table className="calendar-table">
 					<tbody>
+					{ this.createHeaderCalendar() }
 					{ this.createCalendar() }
 					</tbody>
 				  </table>
