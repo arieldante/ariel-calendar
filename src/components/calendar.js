@@ -19,8 +19,6 @@ class Calendar extends Component {
     this.state = {
 		year: 2000,
 		month: 1,
-		date: 1,
-		totalDays: 30,
 		actionForm: false,
 		sendToForm: {}
     };
@@ -34,18 +32,10 @@ class Calendar extends Component {
 	let now = new Date()
 	let y  = now.getFullYear()
 	let m  = now.getMonth() + 1
-	let d  = now.getDate()
-	
-	now.setDate(-1)
-	let ds = now.getDate() // total dias del mes
-	
+
 	 this.setState({
 		year: y,
-		month: m,
-		date: d,
-		totalDays: ds,
-		actionForm: false,
-		sendToForm: {}
+		month: m
     })
 	  
   }
@@ -66,25 +56,28 @@ class Calendar extends Component {
   
   createCalendar() {
     let  rows = []
-
-	let offset = new Date(this.state.year, this.state.month-1, 1).getDay()
-		offset = ( offset < DAYS_OF_WEEKS-1 ? offset : 0 )
-		
-	let days = this.state.totalDays
-	let weeks = (days + offset)/DAYS_OF_WEEKS;
-	let day =  1 - offset;
 	
-		
+	let date = new Date( this.state.year, this.state.month-1, 1 )
+	let today = new Date();
+
+	let offset = date.getDay()
+		offset = ( offset < DAYS_OF_WEEKS-1 ? offset : 0 )
+	
+	let lastDayPastMonth = new Date( this.state.year, this.state.month, 0 )
+	let lastDay = lastDayPastMonth.getDate()
+	
+	let weeks = (lastDay + offset)/DAYS_OF_WEEKS;
+	let day =  1 - offset;
 	
 	for (let i = 0; i < weeks; i++ ){
 		let cols = []
 		for (let j = 0; j < DAYS_OF_WEEKS; j++) {
 			
 			let className = "day"
-			if( day > 0 && day <= days ){
-					if(    day === new Date().getDate()
-						&& this.state.month === new Date().getMonth()+1 
-						&& this.state.year === new Date().getFullYear() )
+			if( day > 0 && day <= lastDay ){
+					if(    day === today.getDate()
+						&& this.state.month === today.getMonth()+1 
+						&& this.state.year === today.getFullYear() )
 						{ className += " today" }
 			}else{
 				className += " empty";
@@ -92,7 +85,6 @@ class Calendar extends Component {
 			
 			cols.push(<Day key={j} date={ day } month={this.state.month} year={this.state.year} className={className} action={this.updateState} />)
 			
-			offset--
 			day++
 			
 		}
